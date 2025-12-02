@@ -1,0 +1,940 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KarmaHarvest Farms | Agricultural Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for Color Scheme */
+        :root {
+            --primary: #2d5016;
+            --secondary: #5a8c29;
+            --accent: #8bc34a;
+            --light: #f1f8e9;
+            --dark: #1a3009;
+            --text: #333333;
+            --white: #ffffff;
+            --shadow: rgba(45, 80, 22, 0.15);
+        }
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Top Navigation Bar - Based on W3Schools example */
+        .topnav {
+            background-color: var(--primary);
+            overflow: hidden;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .topnav a {
+            float: left;
+            display: block;
+            color: var(--white);
+            text-align: center;
+            padding: 18px 22px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .topnav a:hover {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .topnav a.active {
+            background-color: var(--accent);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .topnav .icon {
+            display: none;
+            color: white;
+            padding: 18px;
+        }
+
+        .logo {
+            float: left;
+            padding: 12px 22px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo span {
+            color: var(--white);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(45, 80, 22, 0.85), rgba(90, 140, 41, 0.8)), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--secondary);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: var(--accent);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Page Content Styling */
+        .page-content {
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .card-title {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        /* Table Styling */
+        .agric-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px var(--shadow);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .agric-table th {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .agric-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .agric-table tr:nth-child(even) {
+            background-color: #f9fdf3;
+        }
+
+        .agric-table tr:hover {
+            background-color: #edf7e1;
+        }
+
+        /* Lists Styling */
+        .list-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+
+        .ordered-list, .unordered-list {
+            flex: 0 0 48%;
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .ordered-list h3, .unordered-list h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .ordered-list ol, .unordered-list ul {
+            padding-left: 20px;
+        }
+
+        .ordered-list li, .unordered-list li {
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .ordered-list li {
+            counter-increment: item;
+            padding-left: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-column {
+            flex: 0 0 23%;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            color: var(--accent);
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+        }
+
+        .footer-column p, .footer-column a {
+            color: #d0d0d0;
+            margin-bottom: 12px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+
+        /* Form Styling */
+        .contact-form {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent);
+            outline: none;
+        }
+
+        /* Responsive Styles */
+        @media screen and (max-width: 768px) {
+            .topnav a:not(:first-child) {display: none;}
+            .topnav a.icon {
+                float: right;
+                display: block;
+            }
+
+            .topnav.responsive {position: relative;}
+            .topnav.responsive .icon {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            .topnav.responsive a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .ordered-list, .unordered-list {
+                flex: 0 0 100%;
+                margin-bottom: 30px;
+            }
+
+            .footer-column {
+                flex: 0 0 48%;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .footer-column {
+                flex: 0 0 100%;
+            }
+
+            .contact-form {
+                padding: 25px;
+            }
+        }
+
+        /* Innovation: Progress Bar for Crop Growth */
+        .progress-container {
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 25px;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--accent);
+            border-radius: 10px;
+            text-align: center;
+            color: var(--primary);
+            font-weight: 600;
+            line-height: 25px;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Innovation: Interactive Plant Growth Animation */
+        .plant-growth {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .plant-icon {
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            transition: transform 0.5s ease;
+            cursor: pointer;
+        }
+
+        .plant-icon:hover {
+            transform: scale(1.2);
+        }
+
+        /* Innovation: Seasonal Calendar */
+        .season-calendar {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .season {
+            flex: 0 0 22%;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: var(--white);
+            box-shadow: 0 5px 15px var(--shadow);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .season:hover {
+            transform: translateY(-10px);
+        }
+
+        .season i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="topnav" id="myTopnav">
+        <div class="logo">
+            <i class="fas fa-leaf" style="color: var(--accent); font-size: 30px;"></i>
+            <span>GreenHarvest</span>
+        </div>
+        <a href="#home" class="nav-link active" data-page="home">Home</a>
+        <a href="#products" class="nav-link" data-page="products">Products</a>
+        <a href="#services" class="nav-link" data-page="services">Services</a>
+        <a href="#blog" class="nav-link" data-page="blog">Blog</a>
+        <a href="#contact" class="nav-link" data-page="contact">Contact</a>
+        <a href="javascript:void(0);" class="icon" onclick="toggleNav()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </nav>
+
+    <!-- Hero Section (Only on Home Page) -->
+    <header class="hero" id="home-hero">
+        <div class="container">
+            <h1>Modern Agricultural Solutions</h1>
+            <p>GreenHarvest Farms provides sustainable farming practices, high-quality seeds, organic fertilizers, and expert agricultural consulting to help you maximize your yield and profitability.</p>
+            <a href="#products" class="btn nav-link" data-page="products">Explore Our Products</a>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container">
+        <!-- Home Page -->
+        <section id="home" class="page-content active">
+            <h2 class="section-title">Welcome to GreenHarvest Farms</h2>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1674&q=80" alt="Modern Farming" class="card-img">
+                <div class="card-body">
+                    <h3 class="card-title">Sustainable Agriculture for a Better Future</h3>
+                    <p>At GreenHarvest Farms, we combine traditional farming knowledge with modern technology to create sustainable agricultural solutions. Our mission is to support farmers with high-quality products and expert advice to increase productivity while protecting the environment.</p>
+                    <p>With over 20 years of experience in the agricultural sector, we have helped thousands of farmers improve their yields and profitability through our innovative products and services.</p>
+                </div>
+            </div>
+
+            <!-- Innovation: Seasonal Calendar -->
+            <h3 class="section-title" style="margin-top: 60px;">Seasonal Farming Guide</h3>
+            <div class="season-calendar">
+                <div class="season">
+                    <i class="fas fa-sun"></i>
+                    <h4>Spring</h4>
+                    <p>Planting season for most crops. Ideal time for soil preparation and sowing.</p>
+                </div>
+                <div class="season">
+                    <i class="fas fa-cloud-sun"></i>
+                    <h4>Summer</h4>
+                    <p>Growth period. Focus on irrigation, pest control, and weed management.</p>
+                </div>
+                <div class="season">
+                    <i class="fas fa-cloud-rain"></i>
+                    <h4>Autumn</h4>
+                    <p>Harvest season for many crops. Time for collection and storage.</p>
+                </div>
+                <div class="season">
+                    <i class="fas fa-snowflake"></i>
+                    <h4>Winter</h4>
+                    <p>Planning season. Soil testing, equipment maintenance, and strategy for next year.</p>
+                </div>
+            </div>
+
+            <!-- Innovation: Interactive Plant Growth -->
+            <div class="plant-growth">
+                <h3>Click the plant to see growth stages</h3>
+                <div class="plant-icon" onclick="showGrowthStages()">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <div id="growth-stages" style="display: none;">
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 25%;">Germination (Week 1)</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 50%;">Seedling (Week 2-3)</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 75%;">Vegetative (Week 4-6)</div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" style="width: 100%;">Harvest (Week 7-8)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Page -->
+        <section id="products" class="page-content">
+            <h2 class="section-title">Our Agricultural Products</h2>
+
+            <!-- Table with agricultural products -->
+            <table class="agric-table">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Type</th>
+                        <th>Best For</th>
+                        <th>Price per Unit</th>
+                        <th>Stock Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Premium Wheat Seeds</td>
+                        <td>Seeds</td>
+                        <td>Temperate Climate</td>
+                        <td>45.00ghs</td>
+                        <td>In Stock</td>
+                    </tr>
+                    <tr>
+                        <td>Organic Tomato Seeds</td>
+                        <td>Seeds</td>
+                        <td>Greenhouse/Open Field</td>
+                        <td>28.50ghs</td>
+                        <td>In Stock</td>
+                    </tr>
+                    <tr>
+                        <td>Bio-Organic Fertilizer</td>
+                        <td>Fertilizer</td>
+                        <td>All Crops</td>
+                        <td>120.00ghs</td>
+                        <td>Limited Stock</td>
+                    </tr>
+                    <tr>
+                        <td>Natural Pest Repellent</td>
+                        <td>Pesticide</td>
+                        <td>Vegetables & Fruits</td>
+                        <td>85.00ghs</td>
+                        <td>In Stock</td>
+                    </tr>
+                    <tr>
+                        <td>Soil pH Tester</td>
+                        <td>Equipment</td>
+                        <td>Soil Analysis</td>
+                        <td>65.00ghs</td>
+                        <td>In Stock</td>
+                    </tr>
+                    <tr>
+                        <td>Drip Irrigation Kit</td>
+                        <td>Irrigation</td>
+                        <td>Water Conservation</td>
+                        <td>350.00ghs</td>
+                        <td>Pre-order</td>
+                    </tr>
+                    <tr>
+                        <td>Hybrid Corn Seeds</td>
+                        <td>Seeds</td>
+                        <td>Tropical Climate</td>
+                        <td>52.00ghs</td>
+                        <td>In Stock</td>
+                    </tr>
+                    <tr>
+                        <td>Growth Boost Supplement</td>
+                        <td>Supplement</td>
+                        <td>Flowering Plants</td>
+                        <td>42.00ghs</td>
+                        <td>In Stock</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Product Quality Assurance</h3>
+                    <p>All our products undergo rigorous testing to ensure they meet the highest quality standards. We work directly with agricultural research institutions to develop products that are both effective and environmentally friendly.</p>
+                    <p>Our seeds are non-GMO and selected for high yield and disease resistance. Our fertilizers and pesticides are organic and safe for both the environment and consumers.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Page -->
+        <section id="services" class="page-content">
+            <h2 class="section-title">Our Agricultural Services</h2>
+
+            <div class="list-container">
+                <!-- Ordered List -->
+                <div class="ordered-list">
+                    <h3>Steps to Start Your Farm with Us</h3>
+                    <ol>
+                        <li><strong>Initial Consultation:</strong> Discuss your land, climate, and goals with our experts.</li>
+                        <li><strong>Soil Testing:</strong> Comprehensive analysis of your soil's nutrients and pH level.</li>
+                        <li><strong>Crop Selection:</strong> Recommendation of suitable crops based on your land and market demand.</li>
+                        <li><strong>Supply of Materials:</strong> Provision of high-quality seeds, fertilizers, and equipment.</li>
+                        <li><strong>Implementation Support:</strong> Guidance on planting, irrigation, and pest management.</li>
+                        <li><strong>Monitoring:</strong> Regular check-ins to monitor crop health and growth.</li>
+                        <li><strong>Harvest Planning:</strong> Assistance with harvest timing and techniques.</li>
+                        <li><strong>Market Connection:</strong> Help connecting with buyers and markets for your produce.</li>
+                    </ol>
+                </div>
+
+                <!-- Unordered List -->
+                <div class="unordered-list">
+                    <h3>Our Service Offerings</h3>
+                    <ul>
+                        <li><strong>Agricultural Consulting:</strong> Expert advice on crop selection, soil management, and farming techniques.</li>
+                        <li><strong>Farm Setup Assistance:</strong> Help with planning and establishing new farms or improving existing ones.</li>
+                        <li><strong>Irrigation System Design:</strong> Custom designs for efficient water management systems.</li>
+                        <li><strong>Pest Management Solutions:</strong> Integrated pest management using organic methods.</li>
+                        <li><strong>Soil Health Analysis:</strong> Comprehensive testing and recommendations for soil improvement.</li>
+                        <li><strong>Crop Monitoring Technology:</strong> Implementation of drone and sensor technology for crop health monitoring.</li>
+                        <li><strong>Training Programs:</strong> Workshops and training for farmers on modern agricultural techniques.</li>
+                        <li><strong>Market Access Support:</strong> Assistance with certification, branding, and market connections.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129fe?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80" alt="Agricultural Consulting" class="card-img">
+                <div class="card-body">
+                    <h3 class="card-title">Expert Agricultural Consulting</h3>
+                    <p>Our team of agricultural experts includes agronomists, soil scientists, and irrigation specialists with decades of combined experience. We provide customized solutions for farms of all sizes, from small family farms to large commercial operations.</p>
+                    <p>We stay updated with the latest research and technology in agriculture to provide you with the most effective and sustainable solutions for your farming needs.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Page -->
+        <section id="blog" class="page-content">
+            <h2 class="section-title">Agricultural Insights & Tips</h2>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Sustainable Farming" class="card-img">
+                <div class="card-body">
+                    <h3 class="card-title">5 Sustainable Farming Practices for 2023</h3>
+                    <p><time datetime="2023-10-15">October 15, 2023</time> | By Dr. Sarah Johnson, Agricultural Scientist</p>
+                    <p>Sustainable agriculture is no longer just an option—it's a necessity. Here are five practices that can help make your farm more sustainable:</p>
+                    <ol>
+                        <li><strong>Crop Rotation:</strong> Rotating crops improves soil health and reduces pest problems.</li>
+                        <li><strong>Conservation Tillage:</strong> Reducing tillage helps maintain soil structure and organic matter.</li>
+                        <li><strong>Integrated Pest Management:</strong> Using biological controls reduces reliance on chemical pesticides.</li>
+                        <li><strong>Precision Agriculture:</strong> Using technology to apply water, fertilizers, and pesticides more efficiently.</li>
+                        <li><strong>Agroforestry:</strong> Integrating trees into farming systems provides multiple benefits.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1592982537447-7444dc31f8e8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Irrigation Technology" class="card-img">
+                <div class="card-body">
+                    <h3 class="card-title">Smart Irrigation Systems: Saving Water and Increasing Yield</h3>
+                    <p><time datetime="2023-09-28">September 28, 2023</time> | By Michael Chen, Irrigation Specialist</p>
+                    <p>Water is becoming an increasingly scarce resource in many agricultural regions. Smart irrigation systems use sensors and automation to deliver the right amount of water at the right time, resulting in:</p>
+                    <ul>
+                        <li>Water savings of 30-50% compared to traditional methods</li>
+                        <li>Increased crop yields due to optimal water conditions</li>
+                        <li>Reduced energy costs for pumping water</li>
+                        <li>Prevention of soil erosion and nutrient leaching</li>
+                        <li>Remote monitoring and control via smartphone apps</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact" class="page-content">
+            <h2 class="section-title">Contact GreenHarvest Farms</h2>
+
+            <div class="contact-form">
+                <h3 style="color: var(--primary); margin-bottom: 30px;">Send us a Message</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" class="form-control" required>
+                            <option value="">Select a subject</option>
+                            <option value="product">Product Inquiry</option>
+                            <option value="service">Service Request</option>
+                            <option value="consultation">Consultation Booking</option>
+                            <option value="support">Technical Support</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" class="form-control" rows="5" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+                </form>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; margin-top: 50px;">
+                <div style="flex: 0 0 48%; margin-right: 4%;">
+                    <h3 style="color: var(--primary); margin-bottom: 20px;">Our Location</h3>
+                    <div style="background-color: var(--white); padding: 25px; border-radius: 10px; box-shadow: 0 5px 15px var(--shadow);">
+                        <p><strong>KarmaHarvest Farms Headquarters</strong></p>
+                        <p><i class="fas fa-map-marker-alt" style="color: var(--secondary); margin-right: 10px;"></i> Tema</p>
+                        <p><i class="fas fa-phone" style="color: var(--secondary); margin-right: 10px;"></i> +233 508982343</p>
+                        <p><i class="fas fa-envelope" style="color: var(--secondary); margin-right: 10px;"></i> qhophienova@gmail.com</p>
+                        <p><i class="fas fa-clock" style="color: var(--secondary); margin-right: 10px;"></i> Monday - Friday: 8:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+
+                <div style="flex: 0 0 48%;">
+                    <h3 style="color: var(--primary); margin-bottom: 20px;">Regional Offices</h3>
+                    <div style="background-color: var(--white); padding: 25px; border-radius: 10px; box-shadow: 0 5px 15px var(--shadow);">
+                        <p><strong>North Region Office</strong></p>
+                        <p><i class="fas fa-map-marker-alt" style="color: var(--secondary); margin-right: 10px;"></i> Tema</p>
+                        <p><i class="fas fa-phone" style="color: var(--secondary); margin-right: 10px;"></i> 0508982343</p>
+
+                        <p style="margin-top: 20px;"><strong>South Region Office</strong></p>
+                        <p><i class="fas fa-map-marker-alt" style="color: var(--secondary); margin-right: 10px;"></i> Tema</p>
+                        <p><i class="fas fa-phone" style="color: var(--secondary); margin-right: 10px;"></i> 0508982343</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>KarmaHarvest Farms</h3>
+                    <p>Providing sustainable agricultural solutions since 2003. We are committed to helping farmers succeed while protecting our environment for future generations.</p>
+                    <div style="margin-top: 20px;">
+                        <a href="#"><i class="fab fa-facebook" style="margin-right: 15px; font-size: 1.2rem;"></i></a>
+                        <a href="#"><i class="fab fa-twitter" style="margin-right: 15px; font-size: 1.2rem;"></i></a>
+                        <a href="#"><i class="fab fa-instagram" style="margin-right: 15px; font-size: 1.2rem;"></i></a>
+                        <a href="#"><i class="fab fa-youtube" style="font-size: 1.2rem;"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="#home" class="nav-link" data-page="home">Home</a>
+                    <a href="#products" class="nav-link" data-page="products">Products</a>
+                    <a href="#services" class="nav-link" data-page="services">Services</a>
+                    <a href="#blog" class="nav-link" data-page="blog">Blog</a>
+                    <a href="#contact" class="nav-link" data-page="contact">Contact</a>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Our Products</h3>
+                    <a href="#">Seeds & Saplings</a>
+                    <a href="#">Organic Fertilizers</a>
+                    <a href="#">Natural Pesticides</a>
+                    <a href="#">Farming Equipment</a>
+                    <a href="#">Irrigation Systems</a>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt" style="margin-right: 10px;"></i> 123 Agriculture Street, Farmville</p>
+                    <p><i class="fas fa-phone" style="margin-right: 10px;"></i> +233 508982343</p>
+                    <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> qhophienova@gmail.com</p>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2023 KarmaHarvest Farms. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+        <script>
+            // Navigation functionality
+            function toggleNav() {
+                const nav = document.getElementById("myTopnav");
+                nav.classList.toggle("responsive");
+            }
+    
+            // Page switching functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                const navLinks = document.querySelectorAll('.nav-link');
+                const pages = document.querySelectorAll('.page-content');
+                const heroSection = document.getElementById('home-hero');
+    
+                // Function to switch pages
+                function switchPage(pageId) {
+                    // Hide all pages
+                    pages.forEach(page => {
+                        page.classList.remove('active');
+                    });
+    
+                    // Show selected page (guard against missing id)
+                    const target = document.getElementById(pageId);
+                    if (target) {
+                        target.classList.add('active');
+                    }
+    
+                    // Update active nav link
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('data-page') === pageId) {
+                            link.classList.add('active');
+                        }
+                    });
+    
+                    // Show/hide hero section based on page
+                    if (pageId === 'home') {
+                        if (heroSection) heroSection.style.display = 'block';
+                    } else {
+                        if (heroSection) heroSection.style.display = 'none';
+                    }
+                }
+    
+                // Attach click handlers to nav links
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        const page = this.getAttribute('data-page');
+                        if (page) {
+                            e.preventDefault();
+                            switchPage(page);
+                            // update URL hash without page jump
+                            history.replaceState(null, '', '#' + page);
+                        }
+                    });
+                });
+    
+                // Initialize page from URL hash (default to 'home')
+                const initialPage = location.hash ? location.hash.replace('#','') : 'home';
+                switchPage(initialPage);
+    
+                // Expose plant growth toggle for inline onclick
+                window.showGrowthStages = function() {
+                    const container = document.getElementById('growth-stages');
+                    if (!container) return;
+                    container.style.display = (container.style.display === 'none' || container.style.display === '') ? 'block' : 'none';
+                };
+    
+                // Simple contact form handling
+                const contactForm = document.getElementById('contactForm');
+                if (contactForm) {
+                    contactForm.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const name = (document.getElementById('name') || {}).value || '';
+                        const email = (document.getElementById('email') || {}).value || '';
+                        const message = (document.getElementById('message') || {}).value || '';
+    
+                        if (!name.trim() || !email.trim() || !message.trim()) {
+                            alert('Please fill in the required fields.');
+                            return;
+                        }
+    
+                        // Simulate submission success
+                        alert('Thank you, ' + name.trim() + '! Your message has been sent.');
+                        contactForm.reset();
+                    });
+                }
+            });
+        </script>
+    </body>
+    </html>
+
